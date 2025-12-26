@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "d3-fetch": "^3.0.1",
+    "vite": "^7.3.0"
+  },
+  "dependencies": {
+    "plotly.js-basic-dist": "^3.3.1"
+  }
+}

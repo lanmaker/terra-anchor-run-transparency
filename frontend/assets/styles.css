@@ -6,8 +6,9 @@
   --ink: #1b1f24;
   --muted: #4a5563;
   --accent: #1f6f8b;
-  --card: #ffffff;
-  --shadow: rgba(27, 31, 36, 0.08);
+  --card: rgba(255, 255, 255, 0.75);
+  --shadow: rgba(27, 31, 36, 0.04);
+  --backdrop: blur(12px);
 }
 
 * {
@@ -19,8 +20,8 @@ body {
   color: var(--ink);
   font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   background: radial-gradient(circle at 20% 20%, var(--bg-2), transparent 55%),
-              radial-gradient(circle at 80% 0%, #f7f3e8, transparent 50%),
-              linear-gradient(180deg, var(--bg-1), #ffffff 60%);
+    radial-gradient(circle at 80% 0%, #f7f3e8, transparent 50%),
+    linear-gradient(180deg, var(--bg-1), #ffffff 60%);
 }
 
 .container {
@@ -47,11 +48,13 @@ body {
 
 .panel {
   background: var(--card);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
   border-radius: 16px;
   padding: 18px 20px 8px;
   margin-bottom: 24px;
   box-shadow: 0 10px 30px var(--shadow);
-  border: 1px solid rgba(27, 31, 36, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   animation: fadeUp 0.6s ease both;
 }
 
@@ -72,6 +75,7 @@ body {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -82,6 +86,7 @@ body {
   .container {
     padding: 32px 16px 48px;
   }
+
   .chart {
     height: 300px;
   }
@@ -90,5 +95,38 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .panel {
     animation: none;
+  }
+}
+
+/* Loading & Error States */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  background: var(--card);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loading.error {
+  color: #c53030;
+  animation: none;
+  border: 1px solid #fc8181;
+  background: #fff5f5;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
   }
 }

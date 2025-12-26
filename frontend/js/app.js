@@ -1,4 +1,5 @@
-/* global Plotly */
+import Plotly from 'plotly.js-basic-dist';
+import { csv } from 'd3-fetch';
 
 function parseNumber(value) {
   const n = parseFloat(value);
@@ -6,15 +7,7 @@ function parseNumber(value) {
 }
 
 function loadCsv(path) {
-  return new Promise((resolve, reject) => {
-    Plotly.d3.csv(path, (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(rows);
-    });
-  });
+  return csv(path);
 }
 
 function buildSeries(rows, key) {
@@ -26,8 +19,25 @@ function buildTime(rows) {
 }
 
 async function main() {
+  const mainContainer = document.querySelector('main');
+  const loadingEl = document.createElement('div');
+  loadingEl.className = 'loading';
+  loadingEl.textContent = 'Loading data...';
+  mainContainer.prepend(loadingEl);
+
+  // Global error handler for unhandled promise rejections
+  window.addEventListener('unhandledrejection', function (event) {
+    console.error('Unhandled rejection (promise):', event.promise, 'reason:', event.reason);
+    if (document.querySelector('.loading')) {
+      document.querySelector('.loading').textContent = `Error: ${event.reason.message || event.reason}`;
+      document.querySelector('.loading').classList.add('error');
+    }
+  });
+
   try {
-    const rows = await loadCsv("assets/flows_hourly.csv");
+    // Use relative path for compatibility with subfolders/IPFS/local
+    const rows = await loadCsv("flows_hourly.csv");
+    loadingEl.remove();
     const time = buildTime(rows);
 
     Plotly.newPlot(
@@ -102,6 +112,10 @@ async function main() {
     );
   } catch (err) {
     console.error("Failed to load data:", err);
+    if (document.querySelector('.loading')) {
+      document.querySelector('.loading').textContent = 'Error loading data. Please check your connection.';
+      document.querySelector('.loading').classList.add('error');
+    }
   }
 }
 
