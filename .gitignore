@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Data
+/data/raw/
+/data/interim/
+/data/processed/*.parquet
+/data/processed/*.csv
+
+# Reports
+/report/
+
+# Frontend build
+/frontend/dist/

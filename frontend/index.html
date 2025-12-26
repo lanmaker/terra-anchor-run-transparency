@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terra/Anchor Run Dashboard</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Terra/Anchor Run Dynamics</h1>
+        <p>Static research dashboard (hourly). Data source: processed outputs.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Net Outflow</h2>
+        <div id="net-outflow" class="chart"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Whale vs Small Outflow</h2>
+        <div id="whale-vs-small" class="chart"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Outflow Concentration (HHI)</h2>
+        <div id="concentration" class="chart"></div>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
